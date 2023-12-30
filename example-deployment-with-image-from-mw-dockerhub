@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  selector:
+    matchLabels:
+      run: load-balancer-example
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: load-balancer-example
+    spec:
+      containers:
+        - name: hello-world
+          image: michalwolnicki/myapp:testlatests4
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+			  
+
+			  
+			  
+
+kubectl expose deployment hello-world --type=NodePort --name=example-service
+kubectl expose pod zzz --type=NodePort --name=example-service
+kubectl expose deployment hello-world --type=LoadBalancer --name=example-service
+docker build . -t michalwolnicki/myapp:testlatests2 --progress=plain --no-cache
+docker push michalwolnicki/myapp:testlatests2
+
+
+
+michalwolnicki/myapp:testlatests4
+michalwolnicki/myapp:testlatests4
+
+kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=michalwolnicki --docker-password=ZZasxz!!2233 --docker-email=wolnicki987@gmail.com
+
+kubectl expose pod zz --type=NodePort --name=example-servicezz
