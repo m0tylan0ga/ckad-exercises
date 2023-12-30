@@ -1,0 +1,11 @@
+FROM maven:3.8.3-openjdk-17 as build
+RUN mkdir /opt/app
+ADD /. /opt/app
+RUN ls -l /opt/app
+WORKDIR /opt/app
+RUN mvn clean install
+
+FROM openjdk:17-jdk-slim
+COPY --from=build /opt/app/target/hellow-0.0.1-SNAPSHOT.jar /opt/app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/opt/app.jar"]
