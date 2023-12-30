@@ -1,3 +1,4 @@
+create deployment with image poiting to my image pushed to dockerhub (http://localhost:8080/test1 or http://localhost:8080/test2):
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,19 +21,35 @@ spec:
               protocol: TCP
 			  
 
-			  
-			  
-
+create nodeport to be able to reach hello world app from outside of pod 
 kubectl expose deployment hello-world --type=NodePort --name=example-service
-kubectl expose pod zzz --type=NodePort --name=example-service
+alternatively you can use yaml file: 
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 32193
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: load-balancer-example
+then you can try call <cluster-ip><32193>/test1 or <cluster-ip><32193>/test2
+
+
 kubectl expose deployment hello-world --type=LoadBalancer --name=example-service
+
+
+some docker usefull commands: 
 docker build . -t michalwolnicki/myapp:testlatests2 --progress=plain --no-cache
 docker push michalwolnicki/myapp:testlatests2
 
+and dockerfile used in this excercise: 
+see DockerfileHello file
 
-
-michalwolnicki/myapp:testlatests4
-michalwolnicki/myapp:testlatests4
 
 kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=michalwolnicki --docker-password=ZZasxz!!2233 --docker-email=wolnicki987@gmail.com
 
