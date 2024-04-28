@@ -1,0 +1,45 @@
+create an ingress that will link deploument from exercises example (deployment)
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  creationTimestamp: "2024-04-25T19:13:33Z"
+  generation: 1
+  labels:
+    name: my-ingress
+  name: my-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  namespace: default
+  resourceVersion: "490870"
+  uid: 3a0138a3-0305-4490-a476-8fc17b736be5
+spec:
+  ingressClassName: public
+  rules:
+  - host: flask-server.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: example-service
+            port:
+              number: 8080
+        path: /test2(/|$)(.*)
+        pathType: Prefix
+      - backend:
+          service:
+            name: example-service
+            port:
+              number: 8080
+        path: /test1(/|$)(.*)
+        pathType: Prefix
+      - backend:
+          service:
+            name: backend-svc
+            port:
+              number: 5000
+        path: /
+        pathType: Prefix
+
+        
+backend-svc - it from internet example 
